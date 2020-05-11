@@ -1,43 +1,39 @@
 package de.unidue.iem.tdr.nis.client.solutions;
 import java.util.*;
-
-public class Helper {
+public class Helper{
+	
 	/** Hier können Sie ihre allgemeinen Funktionen erstellen,
 	 * welche in allen Lösungen verfügbar sind.
 	 * Sie können auch statische Methoden oder Subklassen benutzen.
 	 * Sie können jedoch NICHT die Signatur des Konstruktors verändern.
 	 */
-	/* 
-	 * Hardcoded Tables
-	 */
+
+//----------------------------------------------------------------------------------------------------------------------- 
+	 
+	//Tables and Necessary Values
+	 
+	char[] AlphabetBig = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
+	char[] AlphabetSmall = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h','i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
 	char[] HexValues = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F', 'a', 'b', 'c', 'd', 'e', 'f'};
 	String[] BinaryHexValues = {"0000", "0001", "0010", "0011", "0100", "0101", "0110", "0111", "1000", "1001", "1010", "1011", "1100", "1101", "1110", "1111", "1010", "1011", "1100", "1101", "1110", "1111"}; 
-	String PrimeFactors = "";		
-	/*
-	 * Converting Methods
-	 */
+	String PrimeFactors = "";
+	int[][] vign = new int[26][26];
+	int DESROUND = 0;
+	String[] DESKEYS = new String[16];
 	
-			public int[] EliminateLeadingZeroes(int[] arr) {
-			int fz = 0;
-			for (int i = 0; i < arr.length; i++) {
-				if (arr[i] == 0) {
-					continue;
-				}
-				else if (i == 0 && arr[i] == 1) {
-					break;
-				}
-				else {
-					fz = i;
-					break;
-				}
-			}
-			int[] temp = new int[arr.length - fz];
-			for (int i = fz; i < arr.length; i++) {
-				temp[i - fz] = arr[i];
-			}
-			return temp;
-			}
+//-----------------------------------------------------------------------------------------------------------------------
+	
 			
+			//Converting Methods
+	
+			private String charArrayToString(char[] a) {
+				String out = "";
+				for (int i = 0; i < a.length; i++) {
+					out += a[i];
+				}
+				return out;
+			}
+
 			public String HexToBinary(String hex) {
 				/*
 				 * Copy String to Array
@@ -83,7 +79,7 @@ public class Helper {
 				}
 				return out;
 			}
-			
+
 			public int[] BinaryStringToIntArray(String binary) {
 			/*
 			 * Writing String to Array
@@ -110,6 +106,45 @@ public class Helper {
 				}
 			return out;
 			}
+			
+			public String IntArrayToString(int[] x) {
+				String result = "";
+				for (int i = 0; i < x.length; i++) {
+					if (x[i] == 0) {
+						result += "0";
+					}
+					else {
+						result += "1";
+					}
+				}
+				return result;
+			}
+			
+			public int[] EliminateLeadingZeroes(int[] arr) {
+			int fz = 0;
+			for (int i = 0; i < arr.length; i++) {
+				if (arr[i] == 0) {
+					continue;
+				}
+				else if (i == 0 && arr[i] == 1) {
+					break;
+				}
+				else {
+					fz = i;
+					break;
+				}
+			}
+			int[] temp = new int[arr.length - fz];
+			for (int i = fz; i < arr.length; i++) {
+				temp[i - fz] = arr[i];
+			}
+			return temp;
+			}
+			
+
+//-----------------------------------------------------------------------------------------------------------------------		
+
+			//Mathematical Methods				
 		
 			public int modulo(int a, int b) { 
 				if (b > a && a != 0) {
@@ -130,7 +165,8 @@ public class Helper {
 				*/
 				double d = b / a;
 				x = (int) d;
-				//System.out.println("Teiler: " + x);
+				
+				System.out.println("Teiler: " + x);
 				if (a != 1 && b != 2) {
 				int o = ta * x;
 				int p = tb - o;
@@ -139,8 +175,9 @@ public class Helper {
 				else {
 					return 1;
 					}
-				}
 				
+				}
+					
 				else if (a == 0 || a == b || b == 0) {
 					return 0;
 				}
@@ -185,9 +222,9 @@ public class Helper {
 			
 			public String XOR(String a, String b) {
 				int [] hex1 = BinaryStringToIntArray(HexToBinary(a));
-				//System.out.println("Binäres Array Nr. 1: " + Arrays.toString(hex1));
+				System.out.println("Binäres Array Nr. 1: " + Arrays.toString(hex1));
 				int [] hex2 = BinaryStringToIntArray(HexToBinary(b));
-				//System.out.println("Binäres Array Nr. 2: " + Arrays.toString(hex2));
+				System.out.println("Binäres Array Nr. 2: " + Arrays.toString(hex2));
 				int [] temp;
 				int s;
 				
@@ -222,15 +259,15 @@ public class Helper {
 					
 				}
 				
-				//System.out.println("Angeglichenes Array 1: " +Arrays.toString(hex1));
-				//System.out.println("Angeglichenes Array 2: " +Arrays.toString(hex2));
+				System.out.println("Angeglichenes Array 1: " +Arrays.toString(hex1));
+				System.out.println("Angeglichenes Array 2: " +Arrays.toString(hex2));
 				
 				
 				int[] t1 = new int[hex1.length];
 				for (int i = 0; i < hex1.length; i++) {
 					t1[i] = hex1[i] + hex2[i];	
 				}
-				//System.out.println(Arrays.toString(t1));
+				System.out.println(Arrays.toString(t1));
 				
 				temp = new int[hex1.length];
 				for (int i = 0; i < temp.length; i++) {
@@ -241,19 +278,6 @@ public class Helper {
 				temp = EliminateLeadingZeroes(temp);
 				//System.out.println("Nach dem Angleichen: " + Arrays.toString(temp)); 	
 				return IntArrayToString(temp);	
-			}
-			
-			public String IntArrayToString(int[] x) {
-				String result = "";
-				for (int i = 0; i < x.length; i++) {
-					if (x[i] == 0) {
-						result += "0";
-					}
-					else {
-						result += "1";
-					}
-				}
-				return result;
 			}
 			
 			public int[] getPrimeNumbers(int n) {
@@ -297,22 +321,6 @@ public class Helper {
 				return result;
 			}
 			
-			private String chopLastChar(String a) {
-				char[] input = new char[a.length()];
-				char[] output = new char[input.length-1];
-				for (int i = 0; i < input.length; i++) {
-					input[i] = a.charAt(i);
-				}
-				for (int i = 0; i < output.length; i++) {
-					output[i] = input[i];
-				}
-				StringBuilder s = new StringBuilder();
-				for (int i = 0; i < output.length; i++) {
-					s.append(output[i]);
-				}
-				return s.toString();
-			}
-			
 			public String primeFactors(int n) {
 				int[] PrimeNumbers = getPrimeNumbers(n);
 				int pos = 0;
@@ -336,6 +344,229 @@ public class Helper {
 				return chopLastChar(this.PrimeFactors);
 				
 			}
+
+
+//-----------------------------------------------------------------------------------------------------------------------
+
+			//Helping Methods
+			
+			private String chopLastChar(String a) {
+				char[] input = new char[a.length()];
+				char[] output = new char[input.length-1];
+				for (int i = 0; i < input.length; i++) {
+					input[i] = a.charAt(i);
+				}
+				for (int i = 0; i < output.length; i++) {
+					output[i] = input[i];
+				}
+				StringBuilder s = new StringBuilder();
+				for (int i = 0; i < output.length; i++) {
+					s.append(output[i]);
+				}
+				return s.toString();
+			}
+				
+			private int[] oneForward(int [] input) {
+				/*
+				 * Note: This Method was implemented wrong at first, with a shift to the right.
+				 */
+			int[] result = new int[input.length];
+			//System.out.println("Aktuell bearbeitet: " + Arrays.toString(input));
+			
+			for(int i = 0; i < input.length-1; i++) {
+					result[i] = input[i+1];
+				
+			}
+			result[input.length-1] = input[0];
+			//System.out.println("Ausgabe: " + Arrays.toString(result));
+			return result;
+			}
+			
+			private int[][] buildVignere() {
+			//Initializing the Table
+				for (int i = 0; i < vign[0].length; i++) {
+					for (int j = 0; j < vign[0].length; j++) {
+						vign[i][j] = j;
+					}
+				}
+				
+				/*System.out.println("Aufgebaute Tabelle:");
+				print(vign);
+				System.out.print("\n");
+				*/
+				
+				
+//-------------------------------------------------------------------------------------------------------------------------------------------
+					int[] row = new int[AlphabetBig.length];
+					for (int i = 1; i < AlphabetBig.length; i++) {
+						//Save Previous Row as Array
+						for(int j = 0; j < AlphabetBig.length; j++) {
+							row[j] = vign[i-1][j];
+						}
+						//Forward
+						int[] temp = oneForward(row);
+						//Back to Table 
+						for (int k = 0; k < AlphabetBig.length; k++) {
+							vign[i][k] = temp[k];
+						}
+						/*System.out.println("Aktuelle Zeile: " + i + "\n");
+						System.out.println("Tabelle aktuell: " + "\n");
+						print(vign);
+						System.out.println("\n");
+						*/
+				}
+			//print(vign);
+			return vign ;
+			}
+			
+			private boolean isBigLetter(char c) {
+				for (int i = 0; i < AlphabetBig.length+1; i++) {
+					try {
+					if (AlphabetBig[i] == c) {
+						return true;
+					}
+					else {
+						continue;
+					}
+					}
+					catch (java.lang.ArrayIndexOutOfBoundsException e) {
+						return false;
+					}
+				}
+				return false;
+			}
+			
+			
+//-----------------------------------------------------------------------------------------------------------------------
+		
+			//Encryption & Decryption
+			public String Vignere(String code, String key) {
+				/*
+				 * codeTable	= Decrypting Table
+				 * code2		= Copied Code
+				 * key2			= Copied Decrypting key
+				 * clear		= Cleartext   
+				 */
+				buildVignere();
+				char[] code2 = new char[code.length()];
+				char[] key2  = new char[key.length()];
+				char [] clear = new char[code.length()];
+				
+				//Writing the Coded Message to Array
+				for(int i = 0; i < code.length(); i++) {
+					code2[i] = code.charAt(i);
+				}
+				
+				//Writing Key to Array
+				for(int i = 0; i < key.length(); i++) {
+					key2[i] = key.charAt(i);
+				}
+				
+				//DecryptingAlgorithm
+				for(int i = 0; i < code2.length; i++) {
+					/*
+					 * IndexK	= Index for Char at Keyposition i
+					 * IndexM	= Index for Encryption char
+					 */
+					int IndexK = 0;
+					int IndexM = 0;
+					int IndexL = 0;
+					
+					//Find Index for Keychar
+					if(isBigLetter(key2[i]) == true) {
+						for (int j = 0; j < AlphabetBig.length; j++) {
+						if(key2[i] != AlphabetBig[j]) {
+							IndexK++;
+							continue;
+							}
+						else {
+							IndexK = j;
+							break;
+							}
+						}
+					}
+					else {
+						for (int j = 0; j < AlphabetSmall.length; j++) {
+							if(key2[i] != AlphabetSmall[j]) {
+								IndexK++;
+								continue;
+								}
+							else {
+								IndexK = j;
+								break;
+								}
+							}
+					}
+					//System.out.println("Schlüsselsymbol " + key2[i] + " ist bei Index " + IndexK);
+				
+				//Find Index of Encrypted Symbol
+				if(isBigLetter(code2[i]) == true) {
+					for (int j = 0; j < AlphabetBig.length; j++) {
+					if(code2[i] != AlphabetBig[j]) {
+						IndexL++;
+						continue;
+						}
+					else {
+						IndexL = j;
+						break;
+						}
+					}
+				}
+				else {
+					for (int j = 0; j < AlphabetSmall.length; j++) {
+						if(code2[i] != AlphabetSmall[j]) {
+							IndexL++;
+							continue;
+							}
+						else {
+							IndexL = j;
+							break;
+							}
+						}
+				}
+				//System.out.println("Verschlüsseltes Symbol  " + code2[i] + " ist bei Index " + IndexL);
+			
+				
+				
+				//Find Encrypted Symbol in Vignère-Table 
+				while (IndexL != vign[IndexK][IndexM]) {
+					IndexM++;
+					}		
+				//System.out.println("Gefundes Klaretextsymbol " + AlphabetBig[IndexM] + " Koordinaten: " + IndexL + "-" + IndexM);
+				
+				//Decrypt the Symbol 
+				clear[i] = AlphabetBig[IndexM];
+			
+				}
+				return charArrayToString(clear);
+			}
+			
+			public String generateDESRoundKeys(String key) {
+				
+				return null;
+			}
+			
+//-----------------------------------------------------------------------------------------------------------------------
+			
+			//Copied Methods (Only for Debugging)
+			/*
+			 * Methode zur Ausgabe mehrzeiliger Matrizen. Copyright (C) by S3 UDE
+			 */
+			public void print(int[][] values) {
+				if (values == null) {
+					System.out.println("null");
+				} else {
+					System.out.printf("%dx%x:%n", values.length, values[0].length);
+
+					for (int[] row : values) {
+						System.out.println(Arrays.toString(row));
+					}
+				}
+			}
+			
+//-----------------------------------------------------------------------------------------------------------------------
+			
+			//Constructor
 			public Helper() {
 	
 	}
