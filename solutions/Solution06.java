@@ -18,7 +18,9 @@ public class Solution06 extends AbstractSolution {
 
 	@Override
 	public String run() {
-		return null;
+		Helper h = new Helper();
+		h.generateDESRoundKeys(task.getStringArray(0));
+		return h.DESKEYS[task.getIntArray(0)];
 	}
 
 }

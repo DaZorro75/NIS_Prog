@@ -18,7 +18,27 @@ public class Solution08 extends AbstractSolution {
 
 	@Override
 	public String run() {
-		return null;
+		Helper h = new Helper();
+		String input = task.getStringArray(0);
+		String Key  = task.getStringArray(1);
+		int[] lBlock = new int[32];
+		int[] rBlock = new int[32];
+		
+		//Converting the Input to Array
+		int[] p0 = h.BinaryStringToIntArray(input);
+		
+		//Generating L-/R-Blocks
+		for(int i = 0; i < lBlock.length; i++) {
+			lBlock[i] = p0[i];
+		}
+		for(int i = 0; i < rBlock.length; i++) {
+			rBlock[i] = p0[i + lBlock.length];
+		}
+		
+		//Converting the given roundkey to Array
+		int[] rKey = BinaryStringToIntArray(Key);
+		
+		return h.IntArrayToString(h.functionF(lBlock, rBlock, rKey));
 	}
 
 }
