@@ -19,6 +19,7 @@ public class Solution08 extends AbstractSolution {
 	@Override
 	public String run() {
 		Helper h = new Helper();
+		DES    d = new DES();
 		String input = task.getStringArray(0);
 		String Key  = task.getStringArray(1);
 		int[] lBlock = new int[32];
@@ -38,7 +39,7 @@ public class Solution08 extends AbstractSolution {
 		//Converting the given roundkey to Array
 		int[] rKey = BinaryStringToIntArray(Key);
 		
-		return h.IntArrayToString(h.functionF(lBlock, rBlock, rKey));
+		return h.IntArrayToString(d.functionF(lBlock, rBlock, rKey));
 	}
 
 }

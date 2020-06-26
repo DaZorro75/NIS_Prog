@@ -12,6 +12,10 @@ public class Solution22 extends AbstractSolution {
 	 * Lösung: String Klartext (nicht case-sensitive)
 	 */
 
+	ElGamal e = new ElGamal();
+	int[] publicKey = e.generateKeys();
+	
+	
 	/* Konstruktor - NICHT verändern */
 	public Solution22(Connection con, TaskObject task) {
 		super(con, task);
@@ -19,7 +23,9 @@ public class Solution22 extends AbstractSolution {
 
 	@Override
 	public String run() {
-		return null;
+		String s = task.getStringArray(0);
+		String s0 = e.decrypt(s);
+		return s0;
 	}
 	
 	/**
@@ -29,7 +35,7 @@ public class Solution22 extends AbstractSolution {
 	 */
 	@Override
 	public String[] getKey() {
-		return null;
+		return e.getPublicKey();
 	}
 
 }

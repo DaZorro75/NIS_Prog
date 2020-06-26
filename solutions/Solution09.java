@@ -21,7 +21,7 @@ public class Solution09 extends AbstractSolution {
 
 	@Override
 	public String run() {
-		Helper h = new Helper();
+		DES h = new DES();
 		int[] lBlock = h.BinaryStringToIntArray(task.getStringArray(0));
 		int[] rBlock = h.BinaryStringToIntArray(task.getStringArray(1));
 		return h.makeDESRoundOut(task.getIntArray(0), task.getStringArray(2), lBlock, rBlock);

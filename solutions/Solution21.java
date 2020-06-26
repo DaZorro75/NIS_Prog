@@ -18,7 +18,9 @@ public class Solution21 extends AbstractSolution {
 
 	@Override
 	public String run() {
-		return null;
+		ElGamal e = new ElGamal();
+		e.setKey(task.getIntArray(0), task.getIntArray(1), task.getIntArray(2));
+		return e.encrpyt(task.getStringArray(0));
 	}
 
 }

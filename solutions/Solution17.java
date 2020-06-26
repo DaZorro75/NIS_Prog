@@ -18,7 +18,14 @@ public class Solution17 extends AbstractSolution {
 
 	@Override
 	public String run() {
-		return null;
+		RC4 r = new RC4();
+		int[] Key = r.StateStringToArray(task.getStringArray(0));
+		String plain = task.getStringArray(1);
+		String s = "";
+		for(int i = 0; i < r.RC4Encryption(Key, plain).length; i++) {
+			s += r.HexToBinary(r.RC4Encryption(Key, plain)[i]);
+		}
+		return s;
 	}
 
 }

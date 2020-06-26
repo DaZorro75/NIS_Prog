@@ -2,6 +2,9 @@ package de.unidue.iem.tdr.nis.client.solutions;
 
 import de.unidue.iem.tdr.nis.client.Connection;
 import de.unidue.iem.tdr.nis.client.TaskObject;
+
+import java.util.Arrays;
+
 import de.unidue.iem.tdr.nis.client.AbstractSolution;
 
 public class Solution20 extends AbstractSolution {
@@ -12,6 +15,15 @@ public class Solution20 extends AbstractSolution {
 	 * Lösung: String Klartext (nicht case-sensitive)
 	 */
 
+	/*
+	 * Saving the RSA-Values since generateRSA_Key() will randomly generate a new Key
+	 */
+
+	RSA r = new RSA();
+	String[] publicKey = r.generatePublicKey();
+
+	
+	
 	/* Konstruktor - NICHT verändern */
 	public Solution20(Connection con, TaskObject task) {
 		super(con, task);
@@ -19,7 +31,10 @@ public class Solution20 extends AbstractSolution {
 
 	@Override
 	public String run() {
-		return null;
+		String c = task.getStringArray(0);
+		int[] z = r.decryptRSA(c);
+		char[] t = r.ASCIIToClear(z);
+		return r.charArrayToString(t);
 	}
 	
 	/**
@@ -29,7 +44,8 @@ public class Solution20 extends AbstractSolution {
 	 */
 	@Override
 	public String[] getKey() {
-		return null;
+		return publicKey;
+		
 	}
 
 }

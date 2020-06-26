@@ -17,11 +17,39 @@ public class Solution18 extends AbstractSolution {
 	public Solution18(Connection con, TaskObject task) {
 		super(con, task);
 	}
-
+	
+	
 	@Override
 	public String run() {
 		//In dieser Aufgabe muss eine Zwischenlösung abgegeben werden
-		return null;
+		int p = task.getIntArray(0);
+		int g = task.getIntArray(1);
+		double B = task.getDoubleArray(0);
+		DFH d = new DFH();
+		StringBuilder sd = new StringBuilder();
+		
+		
+		
+		//Generate a random a
+		d.generateDFHPublic(p);
+		
+		//calculate A
+		double A = d.generateDFHA(g, p);
+		
+		//Sending A to Server
+		String[] k = new String[1];
+		sd.append(A);
+		k[0] = sd.toString();
+		this.sendMoreParams(k);
+	
+		//Calculate private Key
+		d.generateDFHKey(p, B);
+		
+		
+		String chiffre = task.getStringArray(0);
+		
+		return d.decryptDFHMessage(chiffre);
+		
 	}
 
 }

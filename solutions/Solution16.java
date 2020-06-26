@@ -18,7 +18,15 @@ public class Solution16 extends AbstractSolution {
 
 	@Override
 	public String run() {
-		return null;
+		RC4 r = new RC4();
+
+		int[] Key = r.StateStringToArray(task.getStringArray(0));
+		String x = "";
+		for(int i = 0; i < r.RC4KSA(Key).length-1; i++) {
+			x += r.RC4KSA(Key)[i] + "_";
+		}
+		x += r.RC4KSA(Key)[r.RC4KSA(Key).length-1];
+		return x;
 	}
 
 }

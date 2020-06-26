@@ -2,6 +2,8 @@ package de.unidue.iem.tdr.nis.client.solutions;
 
 import de.unidue.iem.tdr.nis.client.Connection;
 import de.unidue.iem.tdr.nis.client.TaskObject;
+
+
 import de.unidue.iem.tdr.nis.client.AbstractSolution;
 
 public class Solution12 extends AbstractSolution {
@@ -18,7 +20,15 @@ public class Solution12 extends AbstractSolution {
 
 	@Override
 	public String run() {
-		return null;
+		AES a = new AES();
+		String x = a.makeHexBig(task.getStringArray(0));
+		String[] b = a.chopHexStream(x);
+		for(int i = 0; i < 4; i++) {
+			String[] p = a.chopHexStream(b[i]);
+			p = a.AESMixColumns(p);
+			b[i] = a.stringArrayToString(p);
+		}
+		return a.stringArrayToString(b);
 	}
 
 }

@@ -18,15 +18,14 @@ public class Solution05 extends AbstractSolution {
 
 	@Override
 	public String run() {
-		Helper h = new Helper();
+		Vignere h = new Vignere();
 		/*
-		 *Debugging for unknown Server Errors ("7", "12")
-		 * System.out.println("MESSAGE: " + task.getStringArray(0));
-		 * System.out.println("KEY: " + task.getStringArray(1));
-		 *System.out.println("THE SYSTEM DECRYPTED THIS TO: " + h.Vignere(task.getStringArray(0), task.getStringArray(1)));
-		 */
-		
-		return h.Vignere(task.getStringArray(0), task.getStringArray(1));
+		 *Debugging
+		 System.out.println("MESSAGE: " + task.getStringArray(0));
+		 System.out.println("KEY: " + task.getStringArray(1));
+		 System.out.println("THE SYSTEM DECRYPTED THIS TO: " + h.decryptVignere(task.getStringArray(0), task.getStringArray(1)));
+		*/
+		return h.decryptVignere(task.getStringArray(0), task.getStringArray(1));
 	}
 
 }

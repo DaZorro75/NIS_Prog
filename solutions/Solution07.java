@@ -18,7 +18,7 @@ public class Solution07 extends AbstractSolution {
 
 	@Override
 	public String run() {
-		Helper h = new Helper();
+		DES h = new DES();
 		String key = "0000000000000000000000000000000000000000000000000000000000000000";
 		h.generateRBlocks(task.getStringArray(0), key);
 		return h.DES_R_BLOCKS[task.getIntArray(0)];

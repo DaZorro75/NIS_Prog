@@ -18,7 +18,9 @@ public class Solution10 extends AbstractSolution {
 
 	@Override
 	public String run() {
-		return null;
+		Helper h = new Helper();
+		AES    a = new AES();
+		return h.binaryToHex(a.AESMultiplication(h.BinaryStringToIntArray(h.HexToBinary(task.getStringArray(0))), h.BinaryStringToIntArray(h.HexToBinary(task.getStringArray(1)))));
 	}
 
 }

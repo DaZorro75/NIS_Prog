@@ -20,7 +20,51 @@ public class Solution14 extends AbstractSolution {
 
 	@Override
 	public String run() {
-		return null;
+		AES a = new AES();
+		String datablock 		= task.getStringArray(0);
+		String key 				= task.getStringArray(1);
+		String[] t0 			= a.chopHexStream(datablock);
+		String[][] DATA_BLOCK 	= new String[4][4];
+		String result 			= "";
+		
+		//Generating the Keys
+		a.AESRoundKeyGeneration(key);
+		
+		//Writing the Keystream to DATA_BLOCK
+		for(int i = 0; i < 4; i++) {
+			String[] t1 = a.chopHexStream(t0[i]);
+			for(int j = 0; j < 4; j++) {
+				DATA_BLOCK[j][i] = t1[j];
+			}
+		}
+		
+		//First Round
+		a.AESDoFirstRound(DATA_BLOCK);
+		
+		//Two more Rounds
+		for(int i = 1; i < 3; i++) {
+			DATA_BLOCK = a.AESDoNormalRound(DATA_BLOCK, i);
+		}
+		
+		//DATA_BLOCK to String
+		for(int i = 0; i < 4; i++) {
+			for(int j = 0; j < 4; j++) {
+				result += a.AES_DATABLOCKS[j][i];
+			}
+		}
+		result += "_";
+		for(int i = 0; i < 4; i++) {
+			for(int j = 0; j < 4; j++) {
+				result += a.AES_DATABLOCKS[j][4+i];
+			}
+		}
+		result += "_";
+		for(int i = 0; i < 4; i++) {
+			for(int j = 0; j < 4; j++) {
+				result += a.AES_DATABLOCKS[j][8+i];
+			}
+		}
+		return result;
 	}
 
 }

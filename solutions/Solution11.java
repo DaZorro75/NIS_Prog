@@ -18,7 +18,30 @@ public class Solution11 extends AbstractSolution {
 
 	@Override
 	public String run() {
-		return null;
+		AES a = new AES();
+		a.AESRoundKeyGeneration(task.getStringArray(0));
+		
+		//Picking only the Wanted Parts from the Keyblock
+		String result = "";
+		for(int i = 0; i < 4; i++) {
+			for(int j = 0; j < 4; j++) {
+				result += a.AES_ROUNDKEYS[j][i];
+			}
+		}
+		result += "_";
+		for(int i = 4; i < 8; i++) {
+			for(int j = 0; j < 4; j++) {
+				result += a.AES_ROUNDKEYS[j][i];
+			}
+		}
+		result += "_";
+		for(int i = 8; i < 12; i++) {
+			for(int j = 0; j < 4; j++) {
+				result += a.AES_ROUNDKEYS[j][i];
+			}
+		}
+		
+		return result;
 	}
 
 }
